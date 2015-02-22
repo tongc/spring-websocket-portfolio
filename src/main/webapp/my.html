@@ -1,0 +1,18 @@
+gOD5
+
+<body>
+<script src="scripts/stomp.js"></script>
+<script src="scripts/sockjs-0.3.4.min.js"></script>
+
+<script>
+
+	var socket = new SockJS("/spring-websocket-portfolio/portfolio");
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/price.stock.*', function(calResult){
+                	console.info(JSON.parse(calResult.body));
+                });
+            });
+</script>
+</body>
